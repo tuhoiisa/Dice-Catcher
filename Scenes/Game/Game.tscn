@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://bvqouqdj7gloi"]
+
+[ext_resource type="Script" uid="uid://dnnrhiohdnoqd" path="res://Scenes/Game/game.gd" id="1_ln2h6"]
+[ext_resource type="Texture2D" uid="uid://bvojeblte0pe" path="res://assets/GameBg.png" id="1_rdw05"]
+[ext_resource type="PackedScene" uid="uid://k8oawk8ofvih" path="res://Scenes/Paddle/paddle.tscn" id="2_gwu2e"]
+[ext_resource type="AudioStream" uid="uid://limu8budicbl" path="res://assets/bgm_action_5.mp3" id="4_ln2h6"]
+[ext_resource type="AudioStream" uid="uid://e4hro4qcnck1" path="res://assets/spell1_0.wav" id="5_y3kpf"]
+
+[node name="Game" type="Node2D" unique_id=851185697]
+script = ExtResource("1_ln2h6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1935997883]
+position = Vector2(581, 311)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("1_rdw05")
+
+[node name="Paddle" parent="." unique_id=1670842205 instance=ExtResource("2_gwu2e")]
+position = Vector2(536, 605)
+
+[node name="Timer" type="Timer" parent="." unique_id=895448805]
+wait_time = 2.0
+autostart = true
+
+[node name="Label" type="Label" parent="." unique_id=835099201]
+offset_left = 48.0
+offset_top = 24.0
+offset_right = 88.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0.99510187, 0.68668264, 0.23897845, 1)
+theme_override_colors/font_shadow_color = Color(0.7489229, 0.21413508, 0.17656621, 1)
+theme_override_colors/font_outline_color = Color(0.8210832, 0.00068826973, 0.84925735, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 3
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 32
+text = "000"
+
+[node name="Player" type="AudioStreamPlayer" parent="." unique_id=528478998]
+stream = ExtResource("4_ln2h6")
+volume_db = -10.524
+autoplay = true
+parameters/looping = true
+
+[node name="ScoreSound" type="AudioStreamPlayer2D" parent="." unique_id=1786506612]
+stream = ExtResource("5_y3kpf")
+
+[connection signal="area_entered" from="Paddle" to="." method="_on_paddle_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
